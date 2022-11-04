@@ -68,7 +68,17 @@ router.get('/:id', (req, res, next) => {
 
 // POST - process the information passed from the details form and update the document
 router.post('/:id', (req, res, next) => {
-
+  if(err)
+  {
+      console.log(err);
+      res.end(err);
+  }
+  else
+  {
+      // refresh the book list
+      res.redirect('/book-list');
+  }
+});
     /*****************
      * ADD CODE HERE *
      *****************/
@@ -80,18 +90,18 @@ router.get('/delete/:id', (req, res, next) => {
 
   let id = req.params.id;
 
-  businesscontacts.rdelete({_id: id}, (err) => {
-      if(err)
-      {
-          console.log(err);
-          res.end(err);
-      }
-      else
-      {
-           // refresh the book list
-           res.redirect('/businesscontacts-list');
-      }
-  });
+    Book.remove({_id: id}, (err) => {
+        if(err)
+        {
+            console.log(err);
+            res.end(err);
+        }
+        else
+        {
+             // refresh the book list
+             res.redirect('/book-list');
+        }
+    });
 });
 
 
